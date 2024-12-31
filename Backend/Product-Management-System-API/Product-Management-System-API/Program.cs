@@ -8,7 +8,21 @@ namespace Product_Management_System_API
         {
             var builder = WebApplication.CreateBuilder(args);
             builder.Services.AddDbContext<ProductDbContext>(opt => opt.UseSqlServer("Server=.;Database=ProductManagementSystem;Trusted_Connection=True;TrustServerCertificate=True"));
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("MyPolicy", policy =>
+                {
+                    policy.AllowAnyOrigin()
+                          .AllowAnyMethod()
+                          .AllowAnyHeader();
+                });
+            });
             var app = builder.Build();
+
+
+            app.UseStaticFiles(); 
+            app.UseCors("MyPolicy");
+            app.UseRouting(); 
 
             var products = app.MapGroup("/products");
 
