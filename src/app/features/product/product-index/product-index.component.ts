@@ -3,10 +3,11 @@ import { Product } from '../../product/product';
 import { ProductService } from '../../../shared/product.service';
 import { HttpClientModule } from '@angular/common/http';
 import { TableModule } from 'primeng/table';
+import { RouterModule } from '@angular/router';
 
 @Component({
     selector: 'app-product-index',
-    imports: [HttpClientModule, TableModule],
+    imports: [HttpClientModule, TableModule, RouterModule],
     providers: [ProductService],
     templateUrl: './product-index.component.html',
     styleUrl: './product-index.component.css',
