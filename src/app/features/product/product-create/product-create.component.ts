@@ -24,9 +24,9 @@ export class ProductCreateComponent {
 
     ngOnInit(): void {
         this.form = new FormGroup({
-            name: new FormControl('', [Validators.required]),
-            description: new FormControl('', [Validators.required]),
-            Price: new FormControl('', [Validators.required]),
+            name: new FormControl('', [Validators.required, Validators.maxLength(100)]),
+            description: new FormControl('', [Validators.required, Validators.maxLength(500)]),
+            Price: new FormControl('', [Validators.required, Validators.min(0)]),
         });
     }
 
