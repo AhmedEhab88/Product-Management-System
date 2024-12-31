@@ -2,3 +2,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Override the default styles from PrimeNG for the table header */
+.p-datatable-thead > tr > th {
+    text-align: center !important;
+    padding: 0.75rem !important; /* Tailwind's p-3 */
+    border-top-left-radius: 0.5rem !important; /* Rounded top-left corner */
+}
+
+.p-datatable-thead > tr > th:last-child {
+    border-top-right-radius: 0.5rem !important; /* Rounded top-right corner for the last header cell */
+}
