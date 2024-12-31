@@ -2,6 +2,13 @@
     <div>
         <h1 class="font-mono text-4xl mb-5">Products</h1>
     </div>
+
+    <a
+        href="#"
+        routerLink="/products/create/"
+        class="py-2 px-5 bg-green-400 text-white font-semibold rounded-full shadow-md hover:bg-green-600 mb-10"
+        >Create New Product</a
+    >
     <div>
         <p-table [value]="products" showGridlines [tableStyle]="{ 'min-width': '50rem' }">
             <ng-template #header>
