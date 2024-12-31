@@ -38,7 +38,7 @@ export class ProductCreateComponent {
         console.log(this.form.value);
         this.productService.create(this.form.value).subscribe((res: any) => {
             console.log('Product Created Successfully!');
-            this.router.navigateByUrl('product/index');
+            this.router.navigateByUrl('products/index');
         });
     }
 }
