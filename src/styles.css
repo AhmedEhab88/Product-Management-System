@@ -3,7 +3,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Override the default styles from PrimeNG for the table header */
 .p-datatable-thead > tr > th {
     text-align: center !important;
     padding: 0.75rem !important; /* Tailwind's p-3 */
@@ -12,4 +11,22 @@
 
 .p-datatable-thead > tr > th:last-child {
     border-top-right-radius: 0.5rem !important; /* Rounded top-right corner for the last header cell */
+}
+
+.p-datatable-header {
+    color: #ffffff; /* White text */
+    border-color: #ddd; /* Light border color */
+    border-width: 1px;
+    border-radius: 10px; /* Rounded top corners */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow effect */
+    padding: 10px 20px; /* Increased padding */
+    width: 40%;
+}
+
+/* Make the column titles inside the header more stylish */
+.p-datatable-header th {
+    font-size: 1rem; /* Slightly larger text size */
+    font-weight: 600; /* Semi-bold font */
+    text-transform: uppercase; /* Uppercase text */
+    text-align: center; /* Center-align text */
 }
