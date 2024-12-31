@@ -16,21 +16,23 @@ namespace Product_Management_System_API
                 await db.Products.ToListAsync());
 
 
-            products.MapGet("/{id}", async (int id, ProductDbContext db) =>
-                await db.Products.FindAsync(id)
+            products.MapGet("/{id}", async (int id, ProductDbContext db) => {
+                return await db.Products.FindAsync(id)
                     is Product product
                         ? Results.Ok(product)
-                        : Results.NotFound());
+                        : Results.NotFound();
+            });
 
-            products.MapPost("/", async (Product product, ProductDbContext db) =>
+            products.MapPost("/", async (ProductDTO request, ProductDbContext db) =>
             {
+                var product = new Product(request.Name, request.Description, request.Price, DateTime.Now);
                 db.Products.Add(product);
                 await db.SaveChangesAsync();
 
                 return Results.Created($"/products/{product.Id}", product);
             });
 
-            products.MapPut("/{id}", async (int id, Product inputProduct, ProductDbContext db) =>
+            products.MapPut("/{id}", async (int id, ProductDTO inputProduct, ProductDbContext db) =>
             {
                 var product = await db.Products.FindAsync(id);
 
