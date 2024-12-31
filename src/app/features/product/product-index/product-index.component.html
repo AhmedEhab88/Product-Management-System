@@ -13,19 +13,21 @@
         >Create New Product</a
     >
     <div>
-        <p-table [value]="products" showGridlines [tableStyle]="{ 'min-width': '50rem' }">
+        <p-table [value]="products" stripedRows [tableStyle]="{ 'min-width': '50rem' }">
             <ng-template #header>
                 <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Description</th>
-                    <th>Price</th>
-                    <th>Actions</th>
+                    <th style="width: 20%" pSortableColumn="id">ID <p-sortIcon field="id" /></th>
+                    <th style="width: 20%" pSortableColumn="name">Name <p-sortIcon field="name" /></th>
+                    <th style="width: 20%" pSortableColumn="description">
+                        Description <p-sortIcon field="description" />
+                    </th>
+                    <th style="width: 20%" pSortableColumn="price">Price <p-sortIcon field="price" /></th>
+                    <th style="width: 20%">Actions</th>
                 </tr>
             </ng-template>
             <ng-template #body let-product>
                 <tr>
-                    <td class="w-5">{{ product.id }}</td>
+                    <td class="w-5 text-center">{{ product.id }}</td>
                     <td class="w-5">{{ product.title }}</td>
                     <td class="w-5">
                         <div class="m-2">
@@ -36,11 +38,11 @@
                         <div class="m-2">${{ product.price }}</div>
                     </td>
                     <td>
-                        <div class="ml-4 mr-4">
+                        <div class="flex justify-center">
                             <a
                                 href="#"
                                 [routerLink]="['/products/', product.id, 'edit']"
-                                class="py-2 px-5 bg-green-400 text-white font-semibold rounded-full shadow-md hover:bg-green-700 focus:outline-none focus:ring focus:ring-violet-400 focus:ring-opacity-75btn btn-primary"
+                                class="py-2 px-5 bg-green-400 text-white font-semibold rounded-full shadow-md hover:bg-green-700 focus:outline-none focus:ring focus:ring-violet-400 focus:ring-opacity-75"
                                 >Edit</a
                             >
                             <button
