@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { TableModule } from 'primeng/table';
+import { Table, TableModule } from 'primeng/table';
+import { InputTextModule } from 'primeng/inputtext';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
@@ -11,13 +12,14 @@ import { ConfirmDialogComponent } from '../../../confirmation-dialog/confirmatio
 @Component({
     selector: 'app-product-index',
     standalone: true,
-    imports: [HttpClientModule, TableModule, RouterModule, CommonModule, ConfirmDialogComponent],
+    imports: [HttpClientModule, TableModule, RouterModule, CommonModule, ConfirmDialogComponent, InputTextModule],
     providers: [ProductService],
     templateUrl: './product-index.component.html',
     styleUrl: './product-index.component.css',
 })
 export class ProductIndexComponent {
     @ViewChild(ConfirmDialogComponent) confirmDialog!: ConfirmDialogComponent;
+    @ViewChild('dt2') dt2: Table | undefined; // Access the p-table component
 
     products: Product[] = [];
     selectedProductId: number = -1;
@@ -29,6 +31,17 @@ export class ProductIndexComponent {
             this.products = data;
             console.log(this.products);
         });
+    }
+
+    onGlobalFilter(event: Event) {
+        // Cast the event target to an HTMLInputElement
+        const input = event.target as HTMLInputElement;
+        const filterValue = input.value;
+
+        // Apply the global filter
+        if (this.dt2) {
+            this.dt2.filterGlobal(filterValue, 'contains');
+        }
     }
 
     onDelete(productId: number): void {
