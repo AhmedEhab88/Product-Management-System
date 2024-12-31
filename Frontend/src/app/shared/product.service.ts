@@ -9,7 +9,7 @@ import { Product } from '../features/product/product';
     providedIn: 'root',
 })
 export class ProductService {
-    private apiURL = 'https://fakestoreapi.com';
+    private apiURL = 'http://localhost:5246';
 
     httpOptions = {
         headers: new HttpHeaders({
