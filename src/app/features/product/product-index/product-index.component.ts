@@ -7,6 +7,7 @@ import { RouterModule } from '@angular/router';
 
 @Component({
     selector: 'app-product-index',
+    standalone: true,
     imports: [HttpClientModule, TableModule, RouterModule],
     providers: [ProductService],
     templateUrl: './product-index.component.html',
