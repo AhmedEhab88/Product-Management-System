@@ -62,6 +62,16 @@ export class ProductIndexComponent {
         }
     }
 
+    formatDate(dateString: string): string {
+        const date = new Date(dateString);
+        return date.toLocaleDateString(undefined, {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+        });
+    }
+
     onDelete(productId: number): void {
         this.selectedProductId = productId;
         this.confirmDialog.show('Confirm Deletion', 'Are you sure you want to delete this product?');

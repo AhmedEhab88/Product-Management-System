@@ -62,7 +62,9 @@
                     <td class="w-5">{{ product.name }}</td>
                     <td class="w-5">{{ product.description }}</td>
                     <td class="w-5">${{ product.price }}</td>
-                    <td class="w-5">{{ product.createdDate }}</td>
+                    <td class="w-5">
+                        {{ formatDate(product.createdDate) }}
+                    </td>
                     <td>
                         <div class="flex justify-center">
                             <a
