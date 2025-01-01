@@ -1,3 +1,4 @@
+<app-notification #notification [message]="successMessage" [color]="notification.color"></app-notification>
 <div class="flex justify-center items-center flex-col">
     <div>
         <h1 class="font-mono text-4xl mb-5">Products</h1>
@@ -34,23 +35,24 @@
 
             <ng-template #header>
                 <tr>
-                    <th style="width: 20%" pSortableColumn="id">
+                    <th style="width: 16.67%" pSortableColumn="id">
                         ID
                         <p-sortIcon field="id" />
                     </th>
-                    <th style="width: 20%" pSortableColumn="name">
+                    <th style="width: 16.67%" pSortableColumn="name">
                         Name
                         <p-sortIcon field="name" />
                     </th>
-                    <th style="width: 20%" pSortableColumn="description">
+                    <th style="width: 16.67%" pSortableColumn="description">
                         Description
                         <p-sortIcon field="description" />
                     </th>
-                    <th style="width: 20%" pSortableColumn="price">
+                    <th style="width: 16.67%" pSortableColumn="price">
                         Price
                         <p-sortIcon field="price" />
                     </th>
-                    <th style="width: 20%">Actions</th>
+                    <th style="width: 16.67%">Date</th>
+                    <th style="width: 16.67%">Actions</th>
                 </tr>
             </ng-template>
 
@@ -60,6 +62,7 @@
                     <td class="w-5">{{ product.name }}</td>
                     <td class="w-5">{{ product.description }}</td>
                     <td class="w-5">${{ product.price }}</td>
+                    <td class="w-5">{{ product.createdDate }}</td>
                     <td>
                         <div class="flex justify-center">
                             <a
