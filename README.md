@@ -28,3 +28,6 @@
 - Navigate to the frontend's project folder and run `npm start` in the terminal. This should start up the frontend application at `http://localhost:4200`. Visit that link to verify your app is running.
 - The products list will first be empty, proceed by creating a new product by clicking on the `Create New Product` button and then fill + submit the form.
 - This should navigate you back the main page, showing the product you have just created.
+
+### Some Notes
+- With regards to the backend application, you may notice the lack of solution architecture design, for example, I did not implement Vertical Slice or Clean or N-tier architecure. The main reason being, simplicity. I found that the minimal API is very simple, only has one table, one model to deal with, and only a few end points, therefore, going for such architectures for an application this simple would be considered "over-enginnering". However, if it was planned from early that this application would've been much larger with a lot more entitities, it would've definitely needed to built using such designs. 
