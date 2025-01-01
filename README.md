@@ -15,7 +15,6 @@
      - .NET 8 (check which version you have installed by running `dotnet --version`.)
      - SQL Server
      - Visual Studio 2022
-     - Visual Studio Code
 #### Frontend setup
 - Download the frontend folder and run `npm install`
 #### Backend & Database setup
