@@ -1,4 +1,8 @@
 using Microsoft.EntityFrameworkCore;
+using FluentValidation;
+using FluentValidation.AspNetCore;
+using FluentValidation.Results;
+using System.ComponentModel.DataAnnotations;
 
 namespace Product_Management_System_API
 {
@@ -7,7 +11,7 @@ namespace Product_Management_System_API
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-            builder.Services.AddDbContext<ProductDbContext>(opt => opt.UseSqlServer("Server=.;Database=ProductManagementSystem;Trusted_Connection=True;TrustServerCertificate=True"));
+            builder.Services.AddDbContext<ProductDbContext>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("ProductManagementSystemDb")));
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy("MyPolicy", policy =>
@@ -17,12 +21,31 @@ namespace Product_Management_System_API
                           .AllowAnyHeader();
                 });
             });
+
+            builder.Services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<ProductDTOValidator>());
+
+
+            builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddSwaggerGen();
+
             var app = builder.Build();
 
+            app.UseExceptionHandler(exceptionHandlerApp
+                => exceptionHandlerApp.Run(async context
+                    => await Results.Problem()
+                                 .ExecuteAsync(context)));
 
             app.UseStaticFiles(); 
             app.UseCors("MyPolicy");
-            app.UseRouting(); 
+            app.UseRouting();
+
+            app.UseSwagger();
+
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Product Management System API V1");
+                c.RoutePrefix = string.Empty;
+            });
 
             var products = app.MapGroup("/products");
 
@@ -37,8 +60,14 @@ namespace Product_Management_System_API
                         : Results.NotFound();
             });
 
-            products.MapPost("/", async (ProductDTO request, ProductDbContext db) =>
+            products.MapPost("/", async (ProductDTO request, ProductDbContext db, IValidator<ProductDTO> validator) =>
             {
+                var validationResult = await validator.ValidateAsync(request);
+
+                if (!validationResult.IsValid)
+                {
+                    return Results.ValidationProblem(validationResult.ToDictionary());
+                }
                 var product = new Product(request.Name, request.Description, request.Price, DateTime.Now);
                 db.Products.Add(product);
                 await db.SaveChangesAsync();
@@ -76,4 +105,18 @@ namespace Product_Management_System_API
             app.Run();
         }
     }
+
+
+    public static class ValidationResultExtensions
+    {
+        public static IDictionary<string, string[]> ToDictionary(this FluentValidation.Results.ValidationResult result)
+        {
+            return result.Errors
+                .GroupBy(e => e.PropertyName)
+                .ToDictionary(
+                    g => g.Key,
+                    g => g.Select(e => e.ErrorMessage).ToArray());
+        }
+    }
+
 }
