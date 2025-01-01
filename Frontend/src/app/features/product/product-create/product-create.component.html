@@ -55,6 +55,11 @@
                     <div *ngIf="f['Price'].touched && f['Price'].invalid" class="mt-1 text-red-600">
                         <div *ngIf="f['Price'].errors && f['Price'].errors['required']">Price is required.</div>
                     </div>
+                    <div *ngIf="f['Price'].touched && f['Price'].invalid" class="mt-1 text-red-600">
+                        <div *ngIf="f['Price'].errors && f['Price'].errors['min']">
+                            Price must be a positive number.
+                        </div>
+                    </div>
                 </div>
                 <div class="flex items-center justify-between">
                     <button
