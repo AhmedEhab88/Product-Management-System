@@ -30,3 +30,7 @@
     text-transform: uppercase; /* Uppercase text */
     text-align: center; /* Center-align text */
 }
+
+.p-datatable-tbody > tr > td {
+    text-align: center !important;
+}
