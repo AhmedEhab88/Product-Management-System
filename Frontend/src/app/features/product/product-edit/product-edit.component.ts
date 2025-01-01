@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -6,16 +6,19 @@ import { ProductService } from '../../../shared/product.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Product } from '../product';
+import { NotificationComponent } from '../../../shared/notification/notification.component';
 
 @Component({
     selector: 'app-product-edit',
-    imports: [HttpClientModule, CommonModule, ReactiveFormsModule],
+    imports: [HttpClientModule, CommonModule, ReactiveFormsModule, NotificationComponent],
     providers: [ProductService],
     templateUrl: './product-edit.component.html',
     styleUrl: './product-edit.component.css',
 })
 export class ProductEditComponent {
+    @ViewChild('notification') notification!: NotificationComponent;
     id!: number;
+    successMessage: string = '';
     product!: Product;
     form!: FormGroup;
     constructor(
@@ -43,9 +46,20 @@ export class ProductEditComponent {
 
     submit() {
         console.log(this.form.value);
-        this.productService.update(this.id, this.form.value).subscribe((res: any) => {
-            console.log('Product updated successfully!');
-            this.router.navigateByUrl('products/index');
-        });
+        this.productService.update(this.id, this.form.value).subscribe(
+            (res) => {
+                this.successMessage = `Product updated successfully!`;
+                this.notification.color = '#4caf50';
+                this.notification.show();
+                setTimeout(() => {
+                    this.router.navigateByUrl('products/index');
+                }, 2000);
+            },
+            (error) => {
+                this.successMessage = `An error occured when updating the product, please try again.`;
+                this.notification.color = '#f44336';
+                this.notification.show();
+            },
+        );
     }
 }
