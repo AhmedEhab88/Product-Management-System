@@ -1,27 +1,30 @@
 # Product Management System
-- This is a simple CRUD product management system built using Angular 19 for the frontend, .NET 8 Minimal APIs for the backend, and SQL Server as the database.
+- This is a simple Product Management System built using :
+  - Angular 19
+  - .NET 8 Minimal APIs 
+  - SQL Server
 - This system supports the following:
   - Retrieving products from the backend and displaying it in a table using PrimeNG datatable.
   - Editing a specific product.
   - Creating a new product.
   - Deleting a product.
-  - Sorting the product tables by all columns.
-  - Searching/Filtering by product name on the main page.
+  - Sorting the product table by any of the available columns.
+  - Searching/Filtering the table by product name.
 
  ### Setup
  - To set this project up, please make sure you have installed:
      - Node v20
      - Angular v19.
      - .NET 8 (check which version you have installed by running `dotnet --version`.)
-     - SQL Server
+     - SQL Server Server 2019 or higher.
      - Visual Studio 2022
 #### Frontend setup
-- Download the frontend folder and run `npm install`
+- Download the frontend folder, navigate to your folder's location and run `npm install`.
 #### Backend & Database setup
 - To set up the database,
     - First make sure the connection string in the `appsettings.json` file correctly points to your local SQL Server instance.
     - Open up the solution in Visual Studio 2022, then in the `Package Manager Console`, run `update-database`, this should set up a `Product-Management-System` database with an empty `Products` table.
-- Restore any nuget packages by running `dotnet restore`, also in the `Package Manager Console` .
+- Restore any nuget packages by running `dotnet restore`, also running it in the `Package Manager Console` .
 
 ### Running the application
 - Navigate to the backend's project folder and run `dotnet run`.
@@ -30,4 +33,4 @@
 - This should navigate you back the main page, showing the product you have just created.
 
 ### Some Notes
-- With regards to the backend application, you may notice the lack of solution architecture design, for example, I did not implement Vertical Slice or Clean or N-tier architecure. The main reason being, simplicity. I found that the minimal API is very simple, only has one table, one model to deal with, and only a few end points, therefore, going for such architectures for an application this simple would be considered "over-enginnering". However, if it was planned from early that this application would've been much larger with a lot more entitities, it would've definitely needed to built using such designs. 
+- With regards to the backend application, you may notice the lack of solution architecture design, for example, I did not implement Vertical Slice or Clean or N-tier architecure. The main reason being: simplicity. I found that the minimal API is very simple, it only has one table, one model class, and only a few endpoints, therefore, going for such architectures for an application this simple would be considered "over-enginnering". However, if the initial plan was that the application is any larger with more entities, then it would've definitely been built using such designs. 
